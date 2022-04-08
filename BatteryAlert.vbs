@@ -1,8 +1,14 @@
 Set objWMIService = GetObject("winmgmts:\\.\root\WMI")
 
+Set BFCCResults = objWMIService.ExecQuery("Select * From BatteryFullChargedCapacity")
+For Each objItem in BFCCResults
+	FullChargedCapacity = objItem.FullChargedCapacity
+    WScript.Echo "FullChargedCapacity: " & FullChargedCapacity
+Next
+
 while (1)
-    Set results = objWMIService.ExecQuery("Select * From BatteryStatus")
-    For Each BSItem in results
+    Set BSResults = objWMIService.ExecQuery("Select * From BatteryStatus")
+    For Each BSItem in BSResults
         ' the charge rate
         WScript.Echo "ChargeRate:" & BSItem.ChargeRate
         ' if it's charging
