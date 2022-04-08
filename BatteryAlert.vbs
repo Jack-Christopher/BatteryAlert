@@ -6,21 +6,28 @@ For Each objItem in BFCCResults
     WScript.Echo "FullChargedCapacity: " & FullChargedCapacity
 Next
 
+UpperLimit = FullChargedCapacity * 0.95
+
 while (1)
     Set BSResults = objWMIService.ExecQuery("Select * From BatteryStatus")
     For Each BSItem in BSResults
         ' the charge rate
-        WScript.Echo "ChargeRate:" & BSItem.ChargeRate
+        ChargeRate = BSItem.ChargeRate
         ' if it's charging
-        WScript.Echo "Charging:" & BSItem.Charging
-        ' the discharge rate
-        WScript.Echo "DischargeRate:" & BSItem.DischargeRate
-        ' if it's discharging
-        WScript.Echo "Discharging:" & BSItem.Discharging
+        IsCharging = BSItem.Charging
         ' the remaining capacity
-        WScript.Echo "RemainingCapacity:" & BSItem.RemainingCapacity
+        RemainingCapacity = BSItem.RemainingCapacity
+
+        if (IsCharging AND ChargeRate > 0) then
+            if (RemainingCapacity = FullChargedCapacity) then
+                WScript.Echo "Battery is full"
+            elseif (RemainingCapacity >= UpperLimit) then
+                WScript.Echo "Battery is almost full"
+            end if
+        end if
+        
     next
 
-    wscript.sleep 10000
+    wscript.sleep 60000 ' sleep for 60000 milliseconds (60 seconds)
 
 wend
