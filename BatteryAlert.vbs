@@ -6,7 +6,17 @@ For Each objItem in BFCCResults
     WScript.Echo "FullChargedCapacity: " & FullChargedCapacity
 Next
 
+' The UpperLimit is the % of battery capacity that the system will 
+' charge to before it warns the user that the battery is almost full
 UpperLimit = FullChargedCapacity * 0.95
+
+' The LowerLimit is the % of battery capacity that the system will
+' have to warn the user that the battery is almost empty
+LowerLimit = FullChargedCapacity * 0.10
+
+' The SleepTime is the time in seconds that the script will wait
+' before checking the battery status again
+SleepTime = 300000 ' 5 minutes in milliseconds by default
 
 while (1)
     Set BSResults = objWMIService.ExecQuery("Select * From BatteryStatus")
@@ -21,13 +31,16 @@ while (1)
         if (IsCharging AND ChargeRate > 0) then
             if (RemainingCapacity = FullChargedCapacity) then
                 WScript.Echo "Battery is full"
+                SleepTime = 60000 ' 60 seconds 
             elseif (RemainingCapacity >= UpperLimit) then
                 WScript.Echo "Battery is almost full"
             end if
-        end if
-        
+        elseif (RemainingCapacity <= LowerLimit) then
+            WScript.Echo "Battery is almost empty"
+            SleepTime = 60000 ' 60 seconds
+        end if        
     next
 
-    wscript.sleep 60000 ' sleep for 60000 milliseconds (60 seconds)
+    wscript.sleep SleepTime 
 
 wend
