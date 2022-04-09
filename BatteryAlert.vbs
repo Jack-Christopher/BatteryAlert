@@ -3,7 +3,6 @@ Set objWMIService = GetObject("winmgmts:\\.\root\WMI")
 Set BFCCResults = objWMIService.ExecQuery("Select * From BatteryFullChargedCapacity")
 For Each objItem in BFCCResults
 	FullChargedCapacity = objItem.FullChargedCapacity
-    WScript.Echo "FullChargedCapacity: " & FullChargedCapacity
 Next
 
 ' The UpperLimit is the % of battery capacity that the system will 
@@ -30,13 +29,13 @@ while (1)
 
         if (IsCharging AND ChargeRate > 0) then
             if (RemainingCapacity = FullChargedCapacity) then
-                WScript.Echo "Battery is full"
+                msgbox "Your battery is full!", 48 + 4096
                 SleepTime = 60000 ' 60 seconds 
             elseif (RemainingCapacity >= UpperLimit) then
-                WScript.Echo "Battery is almost full"
+                msgbox "Your battery is almost full!", 64 
             end if
         elseif (RemainingCapacity <= LowerLimit) then
-            WScript.Echo "Battery is almost empty"
+            msgbox "Your battery is almost empty!", 16 + 4096
             SleepTime = 60000 ' 60 seconds
         end if        
     next
