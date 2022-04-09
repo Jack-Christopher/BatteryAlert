@@ -20,7 +20,8 @@ The program will run every time you start your computer.
 
 ## Usage
 
-**Screenshot**
+**Screenshots**
+
 When Battery is low the following notification will appear:
 
 ![](2022-04-09-10-59-28.png)
