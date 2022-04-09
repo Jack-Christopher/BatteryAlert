@@ -22,10 +22,17 @@ The program will run every time you start your computer.
 
 **Screenshot**
 When Battery is low the following notification will appear:
+
 ![](2022-04-09-10-59-28.png)
+
+
 When Battery almost full the following notification will appear:
+
 ![](2022-04-09-10-58-14.png)
+
+
 When Battery is fully charged the following notification will appear:
+
 ![](2022-04-09-10-57-41.png)
 
 The program will check the Battery every some minutes, but between the checks it will be in a sleep mode so it won't consume any resources.
