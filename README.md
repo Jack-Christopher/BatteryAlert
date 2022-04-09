@@ -13,9 +13,12 @@ Other things to include:
 You can run it by double clicking the file, but thus it will just work once. In order to run it every time you start your computer, you should do the following:
 - Download the BatteryAlert.vbs file to your computer
 - Press Windows+R, then type `shell:startup`, then click OK or press enter
+
 A File Explorer window will appear, that's the "Startup Folder", that's where the program files that run at startup are.
+
 - Copy the BatteryAlert.vbs file to the Startup Folder
 - Restart your computer
+
 The program will run every time you start your computer.
 
 ## Usage
